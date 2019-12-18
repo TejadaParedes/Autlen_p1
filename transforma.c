@@ -96,23 +96,24 @@ int find_news_nh(AA *aa, AFND * p_afnd){
 
     if(!aa->num_estados){
         inicio = AFNDIndiceEstadoInicial(p_afnd);
+        nh = nh_ini(p_afnd);
+        nh_set_cEstados(nh, inicio);
         for (i = 0; i < afnd_numE; i++){
             if(AFNDCierreLTransicionIJ(p_afnd, inicio, i) && inicio != i){
-                nh = nh_ini(p_afnd);
-                nh_set_cEstados(nh, inicio);
                 /*Necesita a lo mejor una pensada mas*/
-                for (j = i; j > 0; j--){
-                    nh_set_cEstados(nh, j); 
-                }
+                /* for (j = i; j > 0; j--){*/
+                nh_set_cEstados(nh, i); 
+                /*}*/
                 /*-------------------- */
-                aa_add_estado(aa, nh);
             }
         }
+        aa_add_estado(aa, nh);
+        /*cambiar 
         if(!nh){
             nh = nh_ini(p_afnd);
             nh_set_cEstados(nh, inicio);
             aa_add_estado(aa, nh);
-        }
+        }*/
         return 0;
     }
     /*sacar las transiciones del estado donde se encuentra el indice y añadir los nuevos esatdos a los que se transitan, y aumentar el indice, comprobar al final si el indice es igual al numero de nuevos estados*/
@@ -163,7 +164,7 @@ AFND * AFNDTransforma(AFND * afnd){
 
     aa = aa_ini(afnd);
     
-    printf("#########\n");
+    /* printf("#########\n");
     a = find_news_nh(aa, afnd);
     printf("Return: %d\n", a);
     printf("=========\n");
@@ -184,7 +185,9 @@ AFND * AFNDTransforma(AFND * afnd){
     printf("=========\n");
     a = find_news_nh(aa, afnd);
     printf("Return: %d\n", a);
-    printf("#########\n");
+    printf("#########\n");*/
+
+    while (!find_news_nh(aa, afnd));
     
 
     aa_print(aa);
