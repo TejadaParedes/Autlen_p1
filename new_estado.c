@@ -57,7 +57,7 @@ void nh_liberar(Nh *c){
 
 /**
  * Autores: Andrea Salcedo y Alejandro Tejada
- * Metodo que añade un indice de algun estado del automata a la clase
+ * Metodo que añade un indice de un estado del automata a la clase
  */
 int nh_set_cEstados(Nh * c, int estados){
 
@@ -77,7 +77,7 @@ int nh_set_cEstados(Nh * c, int estados){
 
 /**
  * Autores: Andrea Salcedo y Alejandro Tejada
- * Metodo que modifica el numero de esatdos de la clase
+ * Metodo que modifica el numero de estados de la clase
  */
 Nh * nh_set_nEstados(Nh * c, int numEstados){
 
@@ -93,7 +93,7 @@ Nh * nh_set_nEstados(Nh * c, int numEstados){
 
 /**
  * Autores: Andrea Salcedo y Alejandro Tejada
- * Metodo que obtiene el numero de indices que tiene la clase
+ * Metodo que obtiene el número de indices que tiene la clase
  */
 int nh_get_nEstados(Nh * c){
 
@@ -141,9 +141,6 @@ Bool cmp_nh(Nh *nh1, Nh *nh2){
 
     int i = 0;
 
-    /*printf("Conjuntos:\n");
-    nh_print(nh1);
-    nh_print(nh2);*/
     if(nh1->numEstados != nh2->numEstados) return FALSE;
 
     for(i = 0; i < nh1->numEstados; i++){
@@ -161,6 +158,7 @@ int nh_print(Nh *c){
     int i = 0;
 
     if(!c) return -1;
+
     for(i = 0; i < c->numEstados ; i++){
         printf("%d ", c->cEstados[i]);
     }
