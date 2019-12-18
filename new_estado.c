@@ -66,7 +66,7 @@ int nh_set_cEstados(Nh * c, int estados){
         return -1;
     }
 
-    if(esta_en_Nh(c, estados) == TRUE) return -1;
+    if(esta_en_nh(c, estados) == TRUE) return -1;
 
     c->cEstados[c->numEstados] = estados;
 
@@ -141,10 +141,13 @@ Bool cmp_nh(Nh *nh1, Nh *nh2){
 
     int i = 0;
 
-    if(nh1->numEstados != nh1->numEstados) return FALSE;
+    printf("Conjuntos:\n");
+    nh_print(nh1);
+    nh_print(nh2);
+    if(nh1->numEstados != nh2->numEstados) return FALSE;
 
     for(i = 0; i < nh1->numEstados; i++){
-        if(esta_en_Nh(nh2, i) == FALSE) return FALSE;
+        if(esta_en_nh(nh2, nh1->cEstados[i]) == FALSE) return FALSE;
     }
 
     return TRUE;
@@ -158,7 +161,6 @@ int nh_print(Nh *c){
     int i = 0;
 
     if(!c) return -1;
-
     for(i = 0; i < c->numEstados ; i++){
         printf("%d ", c->cEstados[i]);
     }
