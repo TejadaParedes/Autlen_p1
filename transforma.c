@@ -185,6 +185,7 @@ AFND * AFNDTransforma(AFND * afnd){
     a = find_news_nh(aa, afnd);
     printf("Return: %d\n", a);
     printf("#########\n");
+    
 
     aa_print(aa);
 
