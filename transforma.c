@@ -77,6 +77,7 @@ void aa_print(AA *aa){
     printf("> Número de estados: %d\n", aa->num_estados);
     printf("> Índice: %d\n", aa->indice_estados);
     for(i = 0; i < aa->num_estados; i++){
+        printf("%d: ", i);
         nh_print(aa->estados[i]);
     }
 }
@@ -87,7 +88,7 @@ void aa_print(AA *aa){
  */
 int find_news_nh(AA *aa, AFND * p_afnd){
 
-    int inicio = 0, i = 0, j = 0, k = 0, afnd_numE = 0, afnd_numS = 0, *tabla = NULL, tamTabla = 0, flag = 0;
+    int inicio = 0, i = 0, j = 0, k = 0, afnd_numE = 0, afnd_numS = 0, *tabla = NULL, tamTabla = 0, x = 0, s = 0;
     Nh *nh = NULL;
 
     afnd_numE = AFNDNumEstados(p_afnd);
@@ -99,10 +100,11 @@ int find_news_nh(AA *aa, AFND * p_afnd){
             if(AFNDCierreLTransicionIJ(p_afnd, inicio, i) && inicio != i){
                 nh = nh_ini(p_afnd);
                 nh_set_cEstados(nh, inicio);
+                /*Necesita a lo mejor una pensada mas*/
                 for (j = i; j > 0; j--){
-                    nh_set_cEstados(nh, j); /*Necesita a lo mejor una pensada mas*/
+                    nh_set_cEstados(nh, j); 
                 }
-
+                /*-------------------- */
                 aa_add_estado(aa, nh);
             }
         }
@@ -136,6 +138,13 @@ int find_news_nh(AA *aa, AFND * p_afnd){
             for(j = 0; j < afnd_numE; j++){
                 if(AFNDTransicionIndicesEstadoiSimboloEstadof(p_afnd, tabla[i], k, j)){
                     nh_set_cEstados(nh, j);
+                    for(x = 0; x < afnd_numE; x++){
+                        if(AFNDCierreLTransicionIJ(p_afnd, j, x) && j != x){
+                            /*for (s = x; s > j; s--){*/
+                                nh_set_cEstados(nh, x); /*Necesita a lo mejor una pensada mas*/
+                            /* }*/
+                        }
+                    }
                 }
             }
         }
@@ -150,19 +159,33 @@ int find_news_nh(AA *aa, AFND * p_afnd){
 AFND * AFNDTransforma(AFND * afnd){
 
     AA *aa = NULL;
+    int a = 0;
 
     aa = aa_ini(afnd);
     
     printf("#########\n");
-    find_news_nh(aa, afnd);
+    a = find_news_nh(aa, afnd);
+    printf("Return: %d\n", a);
     printf("=========\n");
-    find_news_nh(aa, afnd);
+    a = find_news_nh(aa, afnd);
+    printf("Return: %d\n", a);
     printf("=========\n");
-    find_news_nh(aa, afnd);
+    a = find_news_nh(aa, afnd);
+    printf("Return: %d\n", a);
     printf("=========\n");
-    find_news_nh(aa, afnd);
+    a = find_news_nh(aa, afnd);
+    printf("Return: %d\n", a);
+    printf("=========\n");
+    a = find_news_nh(aa, afnd);
+    printf("Return: %d\n", a);
+    printf("=========\n");
+    a = find_news_nh(aa, afnd);
+    printf("Return: %d\n", a);
+    printf("=========\n");
+    a = find_news_nh(aa, afnd);
+    printf("Return: %d\n", a);
     printf("#########\n");
-    /* Falla porque falta la 5 en el 2 y 3 porque del 3 al 5 hay un lambda*/
+
     aa_print(aa);
 
     return NULL;
