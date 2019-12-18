@@ -37,12 +37,26 @@ int main(int argc, char ** argv)
     AFNDInsertaLTransicion(p_afnd, "q3", "q5");
     AFNDCierraLTransicion(p_afnd);
 
+	/* p_afnd= AFNDNuevo("af11", 3, 2);
+
+	AFNDInsertaSimbolo(p_afnd,"0");
+	AFNDInsertaSimbolo(p_afnd, "1");
+
+	AFNDInsertaEstado(p_afnd, "q0",INICIAL);
+	AFNDInsertaEstado(p_afnd, "q1", NORMAL);
+	AFNDInsertaEstado(p_afnd, "q2", FINAL);
+
+	AFNDInsertaTransicion(p_afnd, "q0", "0", "q0");
+	AFNDInsertaTransicion(p_afnd, "q0", "1", "q0");
+	AFNDInsertaTransicion(p_afnd, "q0", "0", "q1");
+	AFNDInsertaTransicion(p_afnd, "q1", "1", "q2");*/
+
 
   	afd  = AFNDTransforma(p_afnd);
 	/*AFNDImprime(stdout,p_afnd);
-	AFNDADot(p_afnd);
+	AFNDADot(p_afnd);*/
 	AFNDImprime(stdout,afd);
-	AFNDADot(afd);*/
+	/*AFNDADot(afd);*/
 
 
 	AFNDElimina(afd);

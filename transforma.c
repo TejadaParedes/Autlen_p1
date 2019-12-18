@@ -29,9 +29,14 @@ void aa_liberar(AA *aa){
 
     int i = 0;
 
+    if(!aa) return;
+
     for(i = 0; i < aa->num_estados; i++){
         nh_liberar(aa->estados[i]);
     }
+    free(aa->estados);
+
+    free(aa);
 
     return;
 }
@@ -156,11 +161,79 @@ int find_news_nh(AA *aa, AFND * p_afnd){
     if(aa->num_estados == aa->indice_estados) return 1;
     else return 0;
 }
+/**
+ * 
+ * Funcion que obtiene las transiciones de los nuevos estados
+ */
+Status obtener_transiciones(AA *aa, AFND *afnd, AFND *new_afnd);
+/**
+ * Alex
+ * Funcion que obtiene el nombre de un nuevo estado
+ */
+char *nombre_nh(int *tabla, AFND *afnd, int tamTabla){
+
+    int i = 0;
+    char *nombrefinal = NULL, *nombre = NULL;
+
+    nombrefinal = (char*)calloc(100, sizeof(char)); 
+
+    for(i = 0; i < tamTabla; i++){
+        nombre = (char*)calloc(strlen(AFNDNombreEstadoEn(afnd, tabla[i]))+1, sizeof(char));
+        strcpy(nombre, AFNDNombreEstadoEn(afnd, tabla[i]));
+        strcat(nombrefinal, nombre);
+        free(nombre);
+    }
+
+    return nombrefinal;
+}
+
+/**
+ * Alex
+ * Función que declara el automata transformado
+ */
+AFND *declarar(AA *aa, AFND *afnd){
+    int i = 0, j = 0, *tabla = NULL, tamTabla = 0, flag = NORMAL;
+    char *nombrefinal = NULL;
+    AFND *new_afnd = NULL;
+
+    new_afnd = AFNDNuevo("new_afd", aa->num_estados, AFNDNumSimbolos(afnd));
+
+    for (i = 0; i < AFNDNumSimbolos(afnd); i++){
+        AFNDInsertaSimbolo(new_afnd, AFNDSimboloEn(afnd, i));
+    }
+
+    for (i = 0; i < aa->num_estados; i++){
+        tabla = nh_get_cEstados(aa->estados[i]);
+        if((tamTabla = nh_get_nEstados(aa->estados[i])) > 1){
+            nombrefinal = nombre_nh(tabla, afnd, tamTabla);
+            for (j = 0; j < tamTabla; j++){
+                if(/*AFNDTipoEstadoEn(afnd, tabla[j]) == INICIAL*/i == 0){
+                    flag = INICIAL;
+                }
+                else if(AFNDTipoEstadoEn(afnd, tabla[j]) == FINAL && flag != INICIAL_Y_FINAL){
+                    flag = FINAL;
+                }
+                else if(AFNDTipoEstadoEn(afnd, tabla[j]) == INICIAL_Y_FINAL){
+                    flag = INICIAL_Y_FINAL;
+                }
+            }
+            AFNDInsertaEstado(new_afnd, nombrefinal, flag);
+        }
+        else{
+             AFNDInsertaEstado(new_afnd, AFNDNombreEstadoEn(afnd, tabla[0]), AFNDTipoEstadoEn(afnd, tabla[0]));
+        }
+        free(nombrefinal);
+        flag = NORMAL;
+    }
+    /*obetener las transiciones */
+    return new_afnd;
+}
 
 AFND * AFNDTransforma(AFND * afnd){
 
     AA *aa = NULL;
     int a = 0;
+    AFND *afd = NULL;
 
     aa = aa_ini(afnd);
     
@@ -189,8 +262,10 @@ AFND * AFNDTransforma(AFND * afnd){
 
     while (!find_news_nh(aa, afnd));
     
-
     aa_print(aa);
 
-    return NULL;
+    afd = declarar(aa, afnd);
+
+    aa_liberar(aa);
+    return afd;
 }
