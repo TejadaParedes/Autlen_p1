@@ -228,7 +228,7 @@ AFND *declarar(AA *aa, AFND *afnd){
         if((tamTabla = nh_get_nEstados(aa->estados[i])) > 1){
             nombrefinal = nombre_nh(tabla, afnd, tamTabla);
             for (j = 0; j < tamTabla; j++){
-                if(AFNDTipoEstadoEn(afnd, tabla[j]) == INICIAL/*i == 0*/){
+                if(/*AFNDTipoEstadoEn(afnd, tabla[j]) == INICIAL*/i == 0){
                     flag = INICIAL;
                 }
                 else if(AFNDTipoEstadoEn(afnd, tabla[j]) == FINAL && flag != INICIAL_Y_FINAL){
