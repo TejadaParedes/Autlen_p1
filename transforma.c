@@ -9,7 +9,7 @@ struct _AA{
 Bool aa_esta_nh(AA *aa, Nh *nh);
 
 /** 
- * Alex
+ * Autores: Andrea Salcedo y Alejandro Tejada
  * Función que inicializa la estrutura global 
  */
 AA *aa_ini(AFND * p_afnd){
@@ -24,7 +24,7 @@ AA *aa_ini(AFND * p_afnd){
 }
 
 /** 
- * Alex
+ * Autores: Andrea Salcedo y Alejandro Tejada
  * Función que libera la estructura global
  */
 void aa_liberar(AA *aa){
@@ -44,7 +44,7 @@ void aa_liberar(AA *aa){
 }
 
 /** 
- * Alex
+ * Autores: Andrea Salcedo y Alejandro Tejada
  * Función que añade un nuevo estado a la estructura global
  */
 Status aa_add_estado(AA *aa, Nh *nh){
@@ -59,12 +59,13 @@ Status aa_add_estado(AA *aa, Nh *nh){
 }
 
 /** 
- * Alex
+ *Autores: Andrea Salcedo y Alejandro Tejada
  * Función que comprueba si un nuevo estado ya esta en la estructura global
  */
 Bool aa_esta_nh(AA *aa, Nh *nh){
 
     int i = 0;
+
 
     for (i = 0; i < aa->num_estados; i++){
         if(cmp_nh(aa->estados[i], nh) == TRUE) return TRUE;
@@ -74,7 +75,7 @@ Bool aa_esta_nh(AA *aa, Nh *nh){
 }
 
 /**
- * Alex
+ * Autores: Andrea Salcedo y Alejandro Tejada
  * Función que imprime la estructura global
  */
 void aa_print(AA *aa){
@@ -90,7 +91,7 @@ void aa_print(AA *aa){
 }
 
 /**
- * Alex
+ * Autores: Andrea Salcedo y Alejandro Tejada
  * Función que encuentra los nuevos estados
  */
 int find_news_nh(AA *aa, AFND * p_afnd){
@@ -143,7 +144,7 @@ int find_news_nh(AA *aa, AFND * p_afnd){
 }
 
 /**
- * Alex
+ * Autores: Andrea Salcedo y Alejandro Tejada
  * Funcion que obtiene el nombre de un nuevo estado
  */
 char *nombre_nh(int *tabla, AFND *afnd, int tamTabla){
@@ -164,7 +165,7 @@ char *nombre_nh(int *tabla, AFND *afnd, int tamTabla){
 }
 
 /**
- * 
+ * Autores: Andrea Salcedo y Alejandro Tejada
  * Funcion que obtiene las transiciones de los nuevos estados
  */
 Status obtener_transiciones(AA *aa, AFND *afnd, AFND *new_afnd){
@@ -209,7 +210,7 @@ Status obtener_transiciones(AA *aa, AFND *afnd, AFND *new_afnd){
 }
 
 /**
- * Alex
+ * Autores: Andrea Salcedo y Alejandro Tejada
  * Función que declara el automata transformado
  */
 AFND *declarar(AA *aa, AFND *afnd){
@@ -253,6 +254,10 @@ AFND *declarar(AA *aa, AFND *afnd){
     return new_afnd;
 }
 
+/**
+ * Autores: Andrea Salcedo y Alejandro Tejada
+ * Función transforma que devuelve el autómata no determinista en determinista
+ */
 AFND * AFNDTransforma(AFND * afnd){
 
     AA *aa = NULL;
