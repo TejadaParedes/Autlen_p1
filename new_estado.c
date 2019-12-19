@@ -141,6 +141,14 @@ Bool cmp_nh(Nh *nh1, Nh *nh2){
 
     int i = 0;
 
+    /*printf("Estamos en la función cmp_nh, comparando los estados:\n");
+
+    printf("ESTADO1: ");
+    nh_print(nh1);
+
+    printf("ESTADO2: ");
+    nh_print(nh2);*/
+
     if(nh1->numEstados != nh2->numEstados) return FALSE;
 
     for(i = 0; i < nh1->numEstados; i++){

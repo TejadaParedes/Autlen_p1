@@ -40,7 +40,10 @@ AFND * AFNDCierraLTransicion (AFND * p_afnd);
 int AFNDLTransicionIJ(AFND * p_afnd, int i , int j);
 
 int AFNDTransicionIndicesEstadoiSimboloEstadof(AFND * p_afnd, int i_e1, int i_s, int i_e2);
-int AFNDCierreLTransicionIJ(AFND * p_afnd, int i, int j); /*Esta es la función que realiza la multiplicación por lamda*/
+
+/*Función con la que sabes si de un estado a otro hay transición lambda*/
+int AFNDCierreLTransicionIJ(AFND * p_afnd, int i, int j); /*Esta es la función que realiza la multiplicación por lambda*/ 
+
 int AFNDIndicePrimerEstadoFinal(AFND * p_afnd);
 
 /* FUNCIONES PARA IMPRIMIR DIAGRAMA */
